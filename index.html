@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management System</title>
+    <meta name="description"
+        content="Technical Event Management Platform for organizing events, managing vendors, and coordinating services">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ====================================================
+        INDEX / HERO
+    ==================================================== -->
+    <div id="pg-index" class="page active">
+        <!-- Navbar for Index -->
+        <div class="row" style="justify-content: flex-end; padding: 10px 20px;">
+            <button class="btn btn-white btn-sm" onclick="go('pg-admin-login')"><i class="ri-admin-line"></i>
+                Admin</button>
+            <button class="btn btn-white btn-sm" onclick="go('pg-vendor-login')"><i class="ri-store-line"></i>
+                Vendor</button>
+            <button class="btn btn-white btn-sm" onclick="go('pg-user-login')"><i class="ri-user-line"></i>
+                User</button>
+        </div>
+
+        <div class="hero-section">
+            <div class="hero-title">Event Management System</div>
+            <div class="hero-subtitle">Orchestrating unforgettable experiences with precision and style.</div>
+
+            <div class="row" style="justify-content: center; gap: 16px;">
+                <button class="btn btn-blue" onclick="go('pg-user-signup')"><i class="ri-user-add-line"></i> New User?
+                    Sign Up</button>
+                <button class="btn btn-white" onclick="go('pg-vendor-signup')"><i class="ri-store-2-line"></i> Vendor
+                    Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        ADMIN LOGIN
+    ==================================================== -->
+    <div id="pg-admin-login" class="page">
+        <div class="container-sm">
+            <div class="row" style="margin-bottom:16px;">
+                <button class="btn btn-white btn-sm" onclick="go('pg-index')"><i class="ri-arrow-left-line"></i>
+                    Back</button>
+            </div>
+            <div class="topnav-title" style="margin-bottom:16px;"><i class="ri-shield-user-line"></i> Admin Login</div>
+            <div id="adm-err" class="alert"></div>
+
+            <div class="form-row">
+                <div class="form-label">User Id</div>
+                <div class="input-group">
+                    <i class="ri-user-settings-line"></i>
+                    <input class="form-input" id="adm-id" type="text" placeholder="admin">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">Password</div>
+                <div class="input-group">
+                    <i class="ri-lock-password-line"></i>
+                    <input class="form-input" id="adm-pw" type="password" placeholder="••••••••">
+                </div>
+            </div>
+
+            <div class="row" style="justify-content:flex-end; margin-top:14px;">
+                <button class="btn btn-white" onclick="go('pg-index')">Cancel</button>
+                <button class="btn btn-blue" onclick="adminLogin()"><i class="ri-login-circle-line"></i> Login</button>
+            </div>
+            <p class="text-muted text-center" style="margin-top:10px;">Default: admin / admin123</p>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        VENDOR LOGIN
+    ==================================================== -->
+    <div id="pg-vendor-login" class="page">
+        <div class="container-sm">
+            <div class="row" style="margin-bottom:16px;">
+                <button class="btn btn-white btn-sm" onclick="go('pg-index')"><i class="ri-arrow-left-line"></i>
+                    Back</button>
+            </div>
+            <div class="topnav-title" style="margin-bottom:16px;"><i class="ri-store-line"></i> Vendor Login</div>
+            <div id="vl-err" class="alert"></div>
+
+            <div class="form-row">
+                <div class="form-label">User Id</div>
+                <div class="input-group">
+                    <i class="ri-mail-line"></i>
+                    <input class="form-input" id="vl-id" type="text" placeholder="Vendor email">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">Password</div>
+                <div class="input-group">
+                    <i class="ri-lock-password-line"></i>
+                    <input class="form-input" id="vl-pw" type="password" placeholder="••••••••">
+                </div>
+            </div>
+
+            <div class="row" style="justify-content:flex-end; margin-top:14px;">
+                <button class="btn btn-white" onclick="go('pg-index')">Cancel</button>
+                <button class="btn btn-blue" onclick="vendorLogin()"><i class="ri-login-circle-line"></i> Login</button>
+            </div>
+            <hr>
+            <p class="text-muted text-center">Try: riya@test.com / vendor123
+                &nbsp;|&nbsp;
+                <button class="link-btn" onclick="go('pg-vendor-signup')">Sign Up</button>
+            </p>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        USER LOGIN
+    ==================================================== -->
+    <div id="pg-user-login" class="page">
+        <div class="container-sm">
+            <div class="row" style="margin-bottom:16px;">
+                <button class="btn btn-white btn-sm" onclick="go('pg-index')"><i class="ri-arrow-left-line"></i>
+                    Back</button>
+            </div>
+            <div class="topnav-title" style="margin-bottom:16px;"><i class="ri-user-line"></i> User Login</div>
+            <div id="ul-err" class="alert"></div>
+
+            <div class="form-row">
+                <div class="form-label">User Id</div>
+                <div class="input-group">
+                    <i class="ri-mail-line"></i>
+                    <input class="form-input" id="ul-id" type="text" placeholder="User email">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">Password</div>
+                <div class="input-group">
+                    <i class="ri-lock-password-line"></i>
+                    <input class="form-input" id="ul-pw" type="password" placeholder="••••••••">
+                </div>
+            </div>
+
+            <div class="row" style="justify-content:flex-end; margin-top:14px;">
+                <button class="btn btn-white" onclick="go('pg-index')">Cancel</button>
+                <button class="btn btn-blue" onclick="userLogin()"><i class="ri-login-circle-line"></i> Login</button>
+            </div>
+            <hr>
+            <p class="text-muted text-center">
+                Try: user@test.com / user123
+                &nbsp;|&nbsp;
+                <button class="link-btn" onclick="go('pg-user-signup')">Sign Up</button>
+            </p>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        USER SIGN UP
+    ==================================================== -->
+    <div id="pg-user-signup" class="page">
+        <div class="container-sm">
+            <div class="row" style="margin-bottom:16px;">
+                <button class="btn btn-white btn-sm" onclick="go('pg-index')"><i class="ri-arrow-left-line"></i>
+                    Back</button>
+            </div>
+            <div class="topnav-title" style="margin-bottom:16px;"><i class="ri-user-add-line"></i> User Sign Up</div>
+            <div id="us-msg" class="alert"></div>
+
+            <div class="form-row">
+                <div class="form-label">Name</div>
+                <div class="input-group">
+                    <i class="ri-user-line"></i>
+                    <input class="form-input" id="us-name" type="text" placeholder="Your name">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">Email</div>
+                <div class="input-group">
+                    <i class="ri-mail-line"></i>
+                    <input class="form-input" id="us-email" type="email" placeholder="you@email.com">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">Password</div>
+                <div class="input-group">
+                    <i class="ri-lock-password-line"></i>
+                    <input class="form-input" id="us-pw" type="password" placeholder="••••••••">
+                </div>
+            </div>
+
+            <div style="text-align:right; margin-top:14px;">
+                <button class="btn btn-blue" onclick="userSignup()">Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        VENDOR SIGN UP
+    ==================================================== -->
+    <div id="pg-vendor-signup" class="page">
+        <div class="container-sm">
+            <div class="row" style="margin-bottom:16px;">
+                <button class="btn btn-white btn-sm" onclick="go('pg-index')"><i class="ri-arrow-left-line"></i>
+                    Back</button>
+            </div>
+            <div class="topnav-title" style="margin-bottom:16px;"><i class="ri-store-2-line"></i> Vendor Sign Up</div>
+            <div id="vs-msg" class="alert"></div>
+
+            <div class="form-row">
+                <div class="form-label">Name</div>
+                <div class="input-group">
+                    <i class="ri-store-line"></i>
+                    <input class="form-input" id="vs-name" type="text" placeholder="Vendor name">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">Email</div>
+                <div class="input-group">
+                    <i class="ri-mail-line"></i>
+                    <input class="form-input" id="vs-email" type="email" placeholder="you@email.com">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">Password</div>
+                <div class="input-group">
+                    <i class="ri-lock-password-line"></i>
+                    <input class="form-input" id="vs-pw" type="password" placeholder="••••••••">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">Category</div>
+                <div class="input-group">
+                    <i class="ri-list-check"></i>
+                    <select class="form-select" id="vs-cat" style="padding-left: 2.75rem;">
+                        <option value="">Select Category</option>
+                        <option value="Catering">Catering</option>
+                        <option value="Florist">Florist</option>
+                        <option value="Decoration">Decoration</option>
+                        <option value="Lighting">Lighting</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="text-align:right; margin-top:14px;">
+                <button class="btn btn-blue" onclick="vendorSignup()">Sign Up</button>
+            </div>
+            <hr>
+            <p class="text-muted text-center">
+                Already registered? <button class="link-btn" onclick="go('pg-vendor-login')">Login</button>
+            </p>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        VENDOR HOME / MAIN PAGE  (Drawing 7)
+    ==================================================== -->
+    <div id="pg-vendor-home" class="page">
+        <div class="card-blue">
+            <div class="welcome-text" id="v-welcome-name">Welcome Vendor</div>
+            <div class="card-blue-btn-row">
+                <button class="btn btn-white" onclick="go('pg-vendor-items')">Your Item</button>
+                <button class="btn btn-white" onclick="go('pg-vendor-add-item')">Add New Item</button>
+                <button class="btn btn-white" onclick="go('pg-vendor-transactions')">Transection</button>
+                <button class="btn btn-white" onclick="logout()">LogOut</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        VENDOR ADD ITEM  (Drawing 9)
+    ==================================================== -->
+    <div id="pg-vendor-add-item" class="page">
+        <div class="container">
+            <!-- Top bar -->
+            <div class="row"
+                style="background-color:#1a6cc8; padding:10px 14px; border-radius:4px; margin-bottom:16px;">
+                <span id="v-add-name" style="color:#ffffff; font-weight:bold; font-size:13px; flex:1;">Welcome 'Vendor
+                    Name'</span>
+                <button class="btn btn-white btn-sm" style="margin-right:4px;"
+                    onclick="go('pg-vendor-product-status')">Product Status</button>
+                <button class="btn btn-white btn-sm" style="margin-right:4px;"
+                    onclick="go('pg-vendor-request-items')">Request Item</button>
+                <button class="btn btn-white btn-sm" style="margin-right:4px;" onclick="go('pg-vendor-items')">View
+                    Product</button>
+                <button class="btn btn-white btn-sm" onclick="logout()">Log Out</button>
+            </div>
+
+            <div style="display:flex; gap:16px; flex-wrap:wrap;">
+                <!-- Add form -->
+                <div style="flex:1; min-width:240px; background:#cfe4f5; border-radius:4px; padding:16px;">
+                    <div id="add-item-msg" class="alert"></div>
+                    <div class="form-row" style="margin-bottom:10px;">
+                        <input class="form-input" id="np-name" type="text" placeholder="Product Name"
+                            style="width:100%;">
+                    </div>
+                    <div class="form-row" style="margin-bottom:10px;">
+                        <input class="form-input" id="np-price" type="number" placeholder="Product Price" min="1"
+                            style="width:100%;">
+                    </div>
+                    <div class="form-row" style="margin-bottom:10px;">
+                        <input class="form-input" id="np-img" type="text"
+                            placeholder="Product Image (URL or leave blank)" style="width:100%;">
+                    </div>
+                    <button class="btn btn-white btn-block" onclick="addProduct()">Add The Product</button>
+                </div>
+                <!-- Product table -->
+                <div style="flex:2; min-width:280px;">
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product Image</th>
+                                    <th>Product Name</th>
+                                    <th>Product Price</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="vendor-products-tbody">
+                                <tr>
+                                    <td colspan="4" class="empty">No products yet.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        VENDOR ITEMS VIEW  (Drawing — Your Item)
+    ==================================================== -->
+    <div id="pg-vendor-items" class="page">
+        <div class="container">
+            <div class="topnav">
+                <button class="btn btn-white btn-sm" onclick="go('pg-vendor-home')">Home</button>
+                <div class="topnav-title">Your Items</div>
+                <button class="btn btn-light btn-sm" onclick="go('pg-vendor-request-items')">Request Item</button>
+                <button class="btn btn-white btn-sm" onclick="logout()">LogOut</button>
+            </div>
+            <div class="cards-row" id="vendor-items-grid">
+                <p class="empty">No products yet.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        VENDOR TRANSACTIONS  (Drawing — Transection)
+    ==================================================== -->
+    <div id="pg-vendor-transactions" class="page">
+        <div class="container">
+            <div class="topnav">
+                <button class="btn btn-white btn-sm" onclick="go('pg-vendor-home')">Home</button>
+                <div class="topnav-title">Transactions</div>
+                <button class="btn btn-white btn-sm" onclick="logout()">LogOut</button>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Amount</th>
+                            <th>Payment</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vendor-trans-tbody">
+                        <tr>
+                            <td colspan="6" class="empty">No transactions yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        VENDOR REQUEST ITEMS (incoming)  (Drawing — User Request)
+    ==================================================== -->
+    <div id="pg-vendor-request-items" class="page">
+        <div class="container-md">
+            <div class="topnav">
+                <button class="btn btn-white btn-sm" onclick="go('pg-vendor-home')">Home</button>
+                <div class="topnav-title">Request Item</div>
+                <button class="btn btn-white btn-sm" onclick="logout()">LogOut</button>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>From</th>
+                            <th>Item</th>
+                            <th>Qty</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vendor-req-tbody">
+                        <tr>
+                            <td colspan="5" class="empty">No requests.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        VENDOR PRODUCT STATUS  (Drawing 17)
+    ==================================================== -->
+    <div id="pg-vendor-product-status" class="page">
+        <div class="container">
+            <div class="topnav">
+                <button class="btn btn-white btn-sm" onclick="go('pg-vendor-add-item')">Home</button>
+                <div class="topnav-title">Product Status</div>
+                <button class="btn btn-white btn-sm" onclick="logout()">LogOut</button>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>E-Mail</th>
+                            <th>Address</th>
+                            <th>Status</th>
+                            <th>Update</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vps-tbody">
+                        <tr>
+                            <td colspan="6" class="empty">No orders yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        UPDATE ORDER STATUS  (Drawing 18)
+    ==================================================== -->
+    <div id="pg-update-status" class="page">
+        <div class="container-sm">
+            <div class="topnav" style="margin-bottom:12px;">
+                <button class="btn btn-blue btn-sm" onclick="goBackFromUpdate()">Home</button>
+                <div style="flex:1;"></div>
+                <span class="text-muted">State will Change</span>
+                <button class="btn btn-white btn-sm" onclick="logout()">LogOut</button>
+            </div>
+            <div class="radio-box">
+                <div class="box-title">Update</div>
+                <div class="radio-item">
+                    <input type="radio" name="upd-status" id="r1" value="Received">
+                    <label for="r1">Recieved</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" name="upd-status" id="r2" value="Ready for Shipping">
+                    <label for="r2">Ready for Shipping</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" name="upd-status" id="r3" value="Out for Delivery">
+                    <label for="r3">Out For Delivery</label>
+                </div>
+            </div>
+            <div class="text-center mt-16">
+                <button class="btn btn-light" style="padding:10px 40px;" onclick="saveStatus()">Update</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        USER PORTAL  (Drawing 10)
+    ==================================================== -->
+    <div id="pg-user-portal" class="page">
+        <div class="container">
+            <div class="welcome-box" id="user-welcome-text">WELCOME USER</div>
+            <div class="topnav">
+                <button class="btn btn-light btn-sm" onclick="go('pg-vendors-list')">Vendor</button>
+                <button class="btn btn-light btn-sm" onclick="go('pg-cart')">
+                    Cart <span class="notif" id="cart-badge">0</span>
+                </button>
+                <button class="btn btn-light btn-sm" onclick="go('pg-guest-list')">Guest List</button>
+                <button class="btn btn-light btn-sm" onclick="go('pg-order-status')">Order Status</button>
+                <button class="btn btn-white btn-sm" style="margin-left:auto;" onclick="logout()">LogOut</button>
+            </div>
+            <div class="section-title">Browse by Category</div>
+            <div class="row" style="margin-bottom:14px;">
+                <button class="btn btn-blue btn-sm" onclick="renderVendors('All')">All</button>
+                <button class="btn btn-white btn-sm" onclick="renderVendors('Catering')">Catering</button>
+                <button class="btn btn-white btn-sm" onclick="renderVendors('Florist')">Florist</button>
+                <button class="btn btn-white btn-sm" onclick="renderVendors('Decoration')">Decoration</button>
+                <button class="btn btn-white btn-sm" onclick="renderVendors('Lighting')">Lighting</button>
+            </div>
+            <div class="cards-row" id="vendor-list"></div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        VENDOR PAGE (list of vendors)  (Drawing 11)
+    ==================================================== -->
+    <div id="pg-vendors-list" class="page">
+        <div class="container">
+            <div class="topnav">
+                <button class="btn btn-white btn-sm" onclick="go('pg-user-portal')">Home</button>
+                <div class="topnav-title">Vendor &nbsp;&nbsp;&nbsp; Florist</div>
+                <button class="btn btn-white btn-sm" onclick="logout()">LogOut</button>
+            </div>
+            <div class="cards-row" id="vendors-all-grid">
+                <!-- populated by renderVendors -->
+            </div>
+            <div class="row" style="margin-top:14px;">
+                <button class="btn btn-blue btn-sm" onclick="filterAndShowVendors('All')">All</button>
+                <button class="btn btn-white btn-sm" onclick="filterAndShowVendors('Catering')">Catering</button>
+                <button class="btn btn-white btn-sm" onclick="filterAndShowVendors('Florist')">Florist</button>
+                <button class="btn btn-white btn-sm" onclick="filterAndShowVendors('Decoration')">Decoration</button>
+                <button class="btn btn-white btn-sm" onclick="filterAndShowVendors('Lighting')">Lighting</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        PRODUCTS  (Drawing 12 — user browses vendor products)
+    ==================================================== -->
+    <div id="pg-products" class="page">
+        <div class="container">
+            <div class="topnav">
+                <button class="btn btn-white btn-sm" onclick="go('pg-user-portal')">Home</button>
+                <div class="topnav-title" id="products-vendor-name">Vendor Name</div>
+                <span id="products-vendor-cat"
+                    style="color:#1a6cc8; font-weight:bold; font-size:13px; background:#cfe4f5; padding:6px 12px; border-radius:4px;"></span>
+                <button class="btn btn-white btn-sm" onclick="logout()">LogOut</button>
+            </div>
+            <div class="section-title">Products</div>
+            <div class="cards-row" id="product-cards"></div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        CART  (Drawing 13)
+    ==================================================== -->
+    <div id="pg-cart" class="page">
+        <div class="container">
+            <div class="topnav">
+                <button class="btn btn-white btn-sm" onclick="go('pg-user-portal')">Home</button>
+                <button class="btn btn-white btn-sm" onclick="go('pg-products')">View Product</button>
+                <button class="btn btn-light btn-sm" onclick="go('pg-request-item')">Request Item</button>
+                <button class="btn btn-light btn-sm" onclick="go('pg-vendor-product-status')">Product Status</button>
+                <button class="btn btn-white btn-sm" style="margin-left:auto;" onclick="logout()">LogOut</button>
+            </div>
+            <div class="topnav-title-light" style="margin-bottom:14px;">Shopping Cart</div>
+
+            <div id="cart-empty" class="alert alert-info">Your cart is empty.</div>
+            <div id="cart-table-wrap" style="display:none;">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grand-total">
+                <span id="cart-total-label">Grand Total 0/-</span>
+                <button class="btn btn-white btn-sm" onclick="clearCart()">Delete All</button>
+            </div>
+
+            <div class="text-center mt-16">
+                <button class="btn btn-white" style="padding:10px 36px;" onclick="go('pg-checkout')">Proceed to
+                    CheckOut</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        CHECKOUT  (Drawing 14)
+    ==================================================== -->
+    <div id="pg-checkout" class="page">
+        <div class="container-md">
+            <div class="topnav-title" id="checkout-total-header" style="margin-bottom:16px;">
+                Item Grand Total 0/-
+            </div>
+            <div class="topnav-title" style="max-width:200px; margin-bottom:16px;">Details</div>
+            <div id="co-msg" class="alert"></div>
+            <div class="form-grid-2">
+                <input class="form-input" id="co-name" type="text" placeholder="Name">
+                <input class="form-input" id="co-num" type="text" placeholder="Number">
+                <input class="form-input" id="co-email" type="email" placeholder="E-mail">
+                <select class="form-select" id="co-pay">
+                    <option value="">Payment Method</option>
+                    <option value="Cash">Cash</option>
+                    <option value="UPI">UPI</option>
+                </select>
+                <input class="form-input" id="co-addr" type="text" placeholder="Address">
+                <input class="form-input" id="co-state" type="text" placeholder="State">
+                <input class="form-input" id="co-city" type="text" placeholder="City">
+                <input class="form-input" id="co-pin" type="text" placeholder="Pin Code">
+            </div>
+            <div class="text-center mt-16">
+                <button class="btn btn-light" style="padding:10px 40px;" onclick="placeOrder()">Order Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        SUCCESS / POPUP  (Drawing 15)
+    ==================================================== -->
+    <div id="pg-success" class="page">
+        <div class="container-sm" style="text-align:center;">
+            <div class="topnav-title" style="margin-bottom:4px;">PopUp</div>
+            <h2 style="color:#2e7d32; margin:12px 0;">THANK YOU</h2>
+
+            <div
+                style="background-color:#1a6cc8; color:#fff; padding:10px; border-radius:4px; margin-bottom:14px; font-weight:bold;">
+                Total Amount
+            </div>
+
+            <div class="success-detail" id="success-detail"></div>
+
+            <button class="btn btn-light" style="padding:10px 40px;" onclick="continueShopping()">Continue
+                Shopping</button>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        REQUEST ITEM  (Drawing 16)
+    ==================================================== -->
+    <div id="pg-request-item" class="page">
+        <div class="container-md">
+            <div class="topnav">
+                <button class="btn btn-white btn-sm" onclick="go('pg-user-portal')">Home</button>
+                <div class="topnav-title">Request Item</div>
+                <button class="btn btn-white btn-sm" onclick="logout()">LogOut</button>
+            </div>
+
+            <!-- Vendor item tiles (like Drawing 16 showing Item 1..4) -->
+            <div class="section-title">Available Items</div>
+            <div class="cards-row" id="request-item-cards">
+                <div class="item-card">
+                    <div class="item-card-img"></div>
+                    <h4>Item 1</h4>
+                </div>
+                <div class="item-card">
+                    <div class="item-card-img"></div>
+                    <h4>Item 2</h4>
+                </div>
+                <div class="item-card">
+                    <div class="item-card-img"></div>
+                    <h4>Item 3</h4>
+                </div>
+                <div class="item-card">
+                    <div class="item-card-img"></div>
+                    <h4>Item 4</h4>
+                </div>
+            </div>
+
+            <hr>
+            <div class="section-title">Submit a Request</div>
+            <div id="ri-msg" class="alert"></div>
+            <div class="row" style="flex-wrap:wrap;">
+                <select class="form-select" id="ri-vendor" style="max-width:220px;">
+                    <option value="">Select Vendor</option>
+                </select>
+                <input class="form-input" id="ri-item" type="text" placeholder="Item Name" style="max-width:200px;">
+                <input class="form-input" id="ri-qty" type="number" placeholder="Qty" min="1" style="max-width:80px;">
+                <button class="btn btn-blue" onclick="submitRequest()">Submit</button>
+            </div>
+
+            <hr>
+            <div class="section-title">My Requests</div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Vendor</th>
+                            <th>Item</th>
+                            <th>Qty</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="my-req-tbody">
+                        <tr>
+                            <td colspan="4" class="empty">No requests yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        ORDER STATUS (User)  (Drawing 19)
+    ==================================================== -->
+    <div id="pg-order-status" class="page">
+        <div class="container">
+            <div class="topnav">
+                <button class="btn btn-white btn-sm" onclick="go('pg-user-portal')">Home</button>
+                <div class="topnav-title">User Order Status</div>
+                <button class="btn btn-white btn-sm" onclick="logout()">LogOut</button>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>E-mail</th>
+                            <th>Address</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="order-status-tbody">
+                        <tr>
+                            <td colspan="4" class="empty">No orders yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        GUEST LIST
+    ==================================================== -->
+    <div id="pg-guest-list" class="page">
+        <div class="container-md">
+            <div class="topnav">
+                <button class="btn btn-white btn-sm" onclick="go('pg-user-portal')">Home</button>
+                <div class="topnav-title">Guest List</div>
+                <button class="btn btn-white btn-sm" onclick="logout()">LogOut</button>
+            </div>
+            <div class="row" style="margin-bottom:14px; flex-wrap:wrap;">
+                <input class="form-input" id="g-name" type="text" placeholder="Guest Name" style="max-width:200px;">
+                <input class="form-input" id="g-phone" type="text" placeholder="Phone" style="max-width:150px;">
+                <input class="form-input" id="g-email" type="email" placeholder="Email" style="max-width:220px;">
+                <button class="btn btn-blue" onclick="addGuest()">Add Guest</button>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody id="guest-tbody">
+                        <tr>
+                            <td colspan="5" class="empty">No guests added yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        ADMIN HOME  (Drawing 20)
+    ==================================================== -->
+    <div id="pg-admin-home" class="page">
+        <div class="container-md">
+            <div class="topnav">
+                <div class="topnav-title">Welcome Admin</div>
+                <button class="btn btn-white btn-sm" onclick="logout()">LogOut</button>
+            </div>
+            <div class="admin-menu">
+                <button class="admin-tile" onclick="go('pg-admin-users')">Maintain User</button>
+                <button class="admin-tile" onclick="go('pg-admin-vendors')">Maintain Vendor</button>
+                <button class="admin-tile" onclick="go('pg-admin-orders')">All Orders</button>
+                <button class="admin-tile" onclick="go('pg-admin-requests')">User Requests</button>
+                <button class="admin-tile" onclick="go('pg-admin-products')">All Products</button>
+                <button class="admin-tile" onclick="go('pg-admin-membership')">Membership</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        ADMIN — MAINTAIN USER  (Drawing 21)
+    ==================================================== -->
+    <div id="pg-admin-users" class="page">
+        <div class="container">
+            <div class="topnav">
+                <button class="btn btn-white btn-sm" onclick="go('pg-admin-home')">Home</button>
+                <div class="topnav-title">User Management</div>
+                <button class="btn btn-white btn-sm" onclick="logout()">LogOut</button>
+            </div>
+            <button class="btn btn-blue btn-sm" style="margin-bottom:12px;" onclick="showUserForm('add')">+ Add
+                User</button>
+
+            <div id="user-form" class="inline-form" style="display:none;">
+                <div class="section-title" id="uf-title">Add User</div>
+                <input type="hidden" id="uf-id">
+                <div class="form-row">
+                    <div class="form-label">Name</div> <input class="form-input" id="uf-name" type="text">
+                </div>
+                <div class="form-row">
+                    <div class="form-label">Email</div> <input class="form-input" id="uf-email" type="email">
+                </div>
+                <div class="form-row">
+                    <div class="form-label">Password</div><input class="form-input" id="uf-pw" type="password">
+                </div>
+                <div class="row mt-10">
+                    <button class="btn btn-blue btn-sm" onclick="saveUser()">Save</button>
+                    <button class="btn btn-white btn-sm"
+                        onclick="document.getElementById('user-form').style.display='none'">Cancel</button>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Update</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-users-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        ADMIN — MAINTAIN VENDOR  (Drawing 22)
+    ==================================================== -->
+    <div id="pg-admin-vendors" class="page">
+        <div class="container">
+            <div class="topnav">
+                <button class="btn btn-white btn-sm" onclick="go('pg-admin-home')">Home</button>
+                <div class="topnav-title">Vendor Management</div>
+                <button class="btn btn-white btn-sm" onclick="logout()">LogOut</button>
+            </div>
+            <button class="btn btn-blue btn-sm" style="margin-bottom:12px;" onclick="showVendorForm('add')">+ Add
+                Vendor</button>
+
+            <div id="vendor-form" class="inline-form" style="display:none;">
+                <div class="section-title" id="vf-title">Add Vendor</div>
+                <input type="hidden" id="vf-id">
+                <div class="form-row">
+                    <div class="form-label">Name</div> <input class="form-input" id="vf-name" type="text">
+                </div>
+                <div class="form-row">
+                    <div class="form-label">Email</div> <input class="form-input" id="vf-email" type="email">
+                </div>
+                <div class="form-row">
+                    <div class="form-label">Password</div> <input class="form-input" id="vf-pw" type="password">
+                </div>
+                <div class="form-row">
+                    <div class="form-label">Category</div>
+                    <select class="form-select" id="vf-cat">
+                        <option value="">Select</option>
+                        <option>Catering</option>
+                        <option>Florist</option>
+                        <option>Decoration</option>
+                        <option>Lighting</option>
+                    </select>
+                </div>
+                <div class="row mt-10">
+                    <button class="btn btn-blue btn-sm" onclick="saveVendor()">Save</button>
+                    <button class="btn btn-white btn-sm"
+                        onclick="document.getElementById('vendor-form').style.display='none'">Cancel</button>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Category</th>
+                            <th>Update</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-vendors-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        ADMIN — ALL ORDERS
+    ==================================================== -->
+    <div id="pg-admin-orders" class="page">
+        <div class="container">
+            <div class="topnav">
+                <button class="btn btn-white btn-sm" onclick="go('pg-admin-home')">Home</button>
+                <div class="topnav-title">All Orders</div>
+                <button class="btn btn-white btn-sm" onclick="logout()">LogOut</button>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Payment</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Update</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-orders-tbody">
+                        <tr>
+                            <td colspan="8" class="empty">No orders yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        ADMIN — USER REQUESTS
+    ==================================================== -->
+    <div id="pg-admin-requests" class="page">
+        <div class="container">
+            <div class="topnav">
+                <button class="btn btn-white btn-sm" onclick="go('pg-admin-home')">Home</button>
+                <div class="topnav-title">User Requests</div>
+                <button class="btn btn-white btn-sm" onclick="logout()">LogOut</button>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>From</th>
+                            <th>Vendor</th>
+                            <th>Item</th>
+                            <th>Qty</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-req-tbody">
+                        <tr>
+                            <td colspan="6" class="empty">No requests.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        ADMIN — ALL PRODUCTS
+    ==================================================== -->
+    <div id="pg-admin-products" class="page">
+        <div class="container">
+            <div class="topnav">
+                <button class="btn btn-white btn-sm" onclick="go('pg-admin-home')">Home</button>
+                <div class="topnav-title">All Products</div>
+                <button class="btn btn-white btn-sm" onclick="logout()">LogOut</button>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Vendor</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-products-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        ADMIN — MEMBERSHIP  (Drawings 21 & 22 — Membership section)
+    ==================================================== -->
+    <div id="pg-admin-membership" class="page">
+        <div class="container-md">
+            <div class="topnav">
+                <button class="btn btn-white btn-sm" onclick="go('pg-admin-home')">Home</button>
+                <div class="topnav-title">Membership</div>
+                <button class="btn btn-white btn-sm" onclick="logout()">LogOut</button>
+            </div>
+
+            <div style="display:flex; gap:14px; flex-wrap:wrap;">
+                <!-- Add Membership -->
+                <div style="flex:1; min-width:260px; background:#cfe4f5; border-radius:4px; padding:16px;">
+                    <div class="section-title">Add Membership</div>
+                    <p class="text-muted" style="margin-bottom:10px;">All fields mandatory. Select duration (default: 6
+                        months).</p>
+                    <div id="add-mem-msg" class="alert"></div>
+                    <input class="form-input" id="mem-vendor" type="text" placeholder="Vendor Name"
+                        style="width:100%; margin-bottom:10px;">
+                    <div class="mem-option">
+                        <input type="radio" name="mem-dur" id="md1" value="6 months" checked>
+                        <label for="md1">6 Months (Default)</label>
+                    </div>
+                    <div class="mem-option">
+                        <input type="radio" name="mem-dur" id="md2" value="1 year">
+                        <label for="md2">1 Year</label>
+                    </div>
+                    <div class="mem-option">
+                        <input type="radio" name="mem-dur" id="md3" value="2 years">
+                        <label for="md3">2 Years</label>
+                    </div>
+                    <button class="btn btn-blue btn-block" onclick="addMembership()">Add</button>
+                </div>
+
+                <!-- Update Membership -->
+                <div style="flex:1; min-width:260px; background:#cfe4f5; border-radius:4px; padding:16px;">
+                    <div class="section-title">Update Membership</div>
+                    <p class="text-muted" style="margin-bottom:10px;">Enter Membership Number (mandatory). Fields
+                        auto-populate.</p>
+                    <div id="upd-mem-msg" class="alert"></div>
+                    <input class="form-input" id="mem-num" type="number" placeholder="Membership Number"
+                        style="width:100%; margin-bottom:8px;" oninput="lookupMembership(this.value)">
+                    <input class="form-input" id="mem-name-display" type="text" placeholder="Vendor Name (auto)"
+                        style="width:100%; margin-bottom:10px;" readonly>
+                    <div class="mem-option">
+                        <input type="radio" name="mem-ext" id="me1" value="6 months" checked>
+                        <label for="me1">Extend 6 Months (Default)</label>
+                    </div>
+                    <div class="mem-option">
+                        <input type="radio" name="mem-ext" id="me2" value="1 year">
+                        <label for="me2">Extend 1 Year</label>
+                    </div>
+                    <div class="mem-option">
+                        <input type="radio" name="mem-ext" id="me3" value="cancel">
+                        <label for="me3">Cancel Membership</label>
+                    </div>
+                    <button class="btn btn-blue btn-block" onclick="updateMembership()">Update</button>
+                </div>
+            </div>
+
+            <div style="margin-top:16px;">
+                <div class="section-title">Active Memberships</div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mem #</th>
+                                <th>Vendor</th>
+                                <th>Duration</th>
+                                <th>Date Added</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mem-tbody">
+                            <tr>
+                                <td colspan="5" class="empty">No memberships yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================
+        SCRIPTS
+    ==================================================== -->
+    <script>
+        function filterAndShowVendors(cat) {
+            var list = cat === 'All' ? S.vendors : S.vendors.filter(function (v) { return v.category === cat; });
+            var html = list.map(function (v) {
+                return '<div class="vendor-card">' +
+                    '<h4>' + v.name + '</h4>' +
+                    '<p>' + v.category + '</p>' +
+                    '<p style="font-size:11px;">Contact: ' + (v.contact || 'N/A') + '</p>' +
+                    '<button class="btn btn-white btn-sm" style="margin-top:6px;" onclick="openVendorProducts(' + v.id + ')">Shop Item</button>' +
+                    '</div>';
+            }).join('');
+            document.getElementById('vendors-all-grid').innerHTML = html || '<p class="empty">No vendors.</p>';
+        }
+
+        // Initialise vendor list page when navigating to it
+        var _origGo = go;
+        go = function (id) {
+            _origGo(id);
+            if (id === 'pg-vendors-list') filterAndShowVendors('All');
+        };
+    </script>
+
+    <!-- Theme Toggle -->
+    <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Dark Mode">
+        🌙
+    </button>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>
